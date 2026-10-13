@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Visto Studio — gravação, edição e motion design para marcas que vivem no vídeo. Vitória de Santo Antão e Recife, PE.">
+<meta property="og:title" content="Visto Studio">
+<meta property="og:description" content="Gravação, edição e motion design para marcas que vivem no vídeo.">
+<meta property="og:image" content="media/funcross.jpg">
+<meta name="theme-color" content="#050505">
+<link rel="icon" type="image/png" href="media/logo-v.png">
+<title>Visto Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: o vídeo é o site. Abertura com uma parede de vídeos em movimento atrás de VISTO gigante; manifesto que acende palavra por palavra; capítulos por nicho com vídeos grandes tocando sozinhos; serviços em letras enormes com vídeo que segue o cursor; contato em letreiro corrido. */
+:root{
+  color-scheme: dark;
+  --ink:#050505;
+  --ink-2:#0e0e0f;
+  --line:#1e1e20;
+  --paper:#f4f2ee;
+  --muted:#8b8986;
+  --silver:#c9ccd1;
+  --wa:#25d366;
+
+  --f-big:"Anton", "Impact", "Arial Narrow", sans-serif;
+  --f-serif:"Instrument Serif", Georgia, serif;
+  --f-body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gutter:clamp(16px, 4vw, 56px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box}
+html{background:var(--ink)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--ink);color:var(--paper);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--silver);outline-offset:3px}
+img,video{display:block;max-width:100%}
+.big{font-family:var(--f-big);font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:.012em;margin:0}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0}
+.label{font:600 .72rem/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.line-mask{display:block;overflow:hidden;padding:.06em 0 .05em}
+.line-mask > span{display:block}
+
+/* navegação */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:calc(18px + env(safe-area-inset-top,0px)) var(--gutter) 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .4s,backdrop-filter .4s}
+.nav.solid{background:rgba(5,5,5,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav img{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:28px;font-weight:600;font-size:.9rem}
+.nav-links a{text-decoration:none;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-links .wa{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--paper);color:var(--ink)}
+.nav-links .wa::after{display:none}
+.nav-links .wa svg{width:16px;height:16px}
+@media (max-width:760px){.nav-links a:not(.wa){display:none}}
+
+/* abertura: parede de vídeos */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate}
+.wall{position:absolute;inset:-10% -4%;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;transform:rotate(-6deg) scale(1.08);z-index:-2}
+.col{display:flex;flex-direction:column;gap:12px;will-change:transform}
+.col.up{animation:colUp 46s linear infinite}
+.col.down{animation:colDown 52s linear infinite}
+@keyframes colUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes colDown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.cell{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:var(--ink-2);flex:none}
+.cell img,.cell video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.wall{grid-template-columns:repeat(3,1fr);inset:-10% -20%}.col:nth-child(n+4){display:none}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 50% 55%,rgba(5,5,5,.45),rgba(5,5,5,.9) 75%),linear-gradient(180deg,rgba(5,5,5,.6),transparent 30%,transparent 60%,var(--ink))}
+.hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 var(--gutter)}
+.hero h1{font-size:clamp(7rem,30vw,30rem);line-height:.8;display:flex;justify-content:center}
+.hero h1 .ch{display:inline-block;overflow:hidden}
+.hero h1 .ch span{display:inline-block}
+.hero .sub{margin-top:clamp(10px,2vw,24px);font-size:clamp(1.4rem,3vw,2.6rem)}
+.hero-foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:calc(26px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.hero-foot p{margin:0;max-width:34ch;font-size:clamp(.95rem,1.3vw,1.1rem);color:rgba(244,242,238,.85);text-align:left}
+.scroll-cue{display:flex;align-items:center;gap:12px;font:600 .72rem/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue i{width:1px;height:46px;background:rgba(244,242,238,.25);position:relative;overflow:hidden}
+.scroll-cue i::after{content:"";position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--paper);animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{to{top:100%}}
+@media (max-width:600px){.scroll-cue{display:none}}
+
+/* manifesto */
+.manifesto{padding:clamp(110px,16vw,220px) var(--gutter)}
+.manifesto p{margin:0 auto;max-width:22ch;font:600 clamp(2rem,5.2vw,4.8rem)/1.08 var(--f-body);letter-spacing:-.03em;text-align:center}
+.manifesto p .w{opacity:.14;transition:opacity .2s}
+.manifesto p .serif{font-weight:400;letter-spacing:-.01em}
+
+/* trabalhos por nicho */
+.work-head{padding:0 var(--gutter);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(40px,7vw,90px)}
+.work-head h2{font-size:clamp(3rem,13.5vw,13rem);max-width:100%}
+.work-head p{max-width:30ch;color:var(--muted);margin:0 0 .8em}
+.chapter{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(24px,5vw,80px);padding:clamp(40px,6vw,80px) var(--gutter);border-top:1px solid var(--line);scroll-margin-top:80px}
+.ch-side{position:sticky;top:110px;align-self:start}
+.ch-side{min-width:0;container-type:inline-size}
+.ch-side h3{font-size:min(5.4rem,12.5cqi);line-height:1;letter-spacing:.02em;overflow-wrap:normal;hyphens:none;text-wrap:balance}
+.ch-side h3 .line-mask > span{display:block}
+.ch-side .label{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.ch-side .label::before{content:"";width:28px;height:1px;background:var(--silver)}
+@supports not (container-type:inline-size){.ch-side h3{font-size:clamp(2.4rem,4.4vw,4.8rem)}}
+.ch-side .igs{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ch-side .igs a{color:var(--silver);text-decoration:none;font-weight:600;transition:color .2s}
+.ch-side .igs a:hover{color:var(--paper)}
+.ch-side .igs span{color:var(--muted)}
+.ch-side .count{margin-top:18px}
+.ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,22px);align-items:start}
+.ch-grid > :nth-child(even){margin-top:clamp(60px,9vw,140px)}
+.ch-grid.solo{grid-template-columns:minmax(0,.55fr)}
+.ch-grid.solo > :nth-child(even){margin-top:0}
+.card{display:block;text-align:left;width:100%}
+.card .frame{display:block;position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:var(--ink-2)}
+.card .frame img,.card .frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card .frame video{opacity:0;transition:opacity .6s,transform 1.2s var(--ease)}
+.card.live .frame video{opacity:1}
+.card:hover .frame img,.card:hover .frame video{transform:scale(1.04)}
+.card .frame::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,rgba(0,0,0,.6));pointer-events:none}
+.card .open{position:absolute;left:16px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;font:700 .74rem/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:999px;background:rgba(244,242,238,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .3s,color .3s}
+.card .open svg{width:11px;height:11px;fill:currentColor}
+.card:hover .open{background:var(--paper);color:var(--ink)}
+.card .cap{margin-top:14px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.card .cap b{font-weight:700;font-size:1.02rem;line-height:1.25}
+.card .cap span{font-size:.84rem;color:var(--muted);white-space:nowrap}
+@media (max-width:860px){
+  .chapter{grid-template-columns:1fr;padding-inline:0}
+  .ch-side{position:static;padding-inline:var(--gutter)}
+  .ch-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:0 var(--gutter) 6px;scrollbar-width:none}
+  .ch-grid::-webkit-scrollbar{display:none}
+  .ch-grid > *{flex:none;width:68vw;max-width:300px;scroll-snap-align:center}
+  .ch-grid > :nth-child(even){margin-top:0}
+}
+
+/* serviços */
+.services{padding:clamp(100px,14vw,200px) 0 clamp(60px,8vw,100px)}
+.services .head{padding:0 var(--gutter);margin-bottom:clamp(30px,5vw,60px)}
+.svc{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:clamp(14px,2vw,24px) var(--gutter);border-top:1px solid var(--line);position:relative;overflow:hidden}
+.svc:last-child{border-bottom:1px solid var(--line)}
+.svc{isolation:isolate;transition:color .45s var(--ease)}
+.svc h3{font-size:clamp(2.6rem,7vw,7rem);white-space:nowrap}
+.svc p{margin:0;max-width:32ch;text-align:right;font-size:clamp(.92rem,1.2vw,1.05rem);color:inherit;opacity:.75}
+@media (max-width:700px){.svc{flex-direction:column;align-items:flex-start;gap:6px}.svc p{text-align:left}}
+
+/* contato */
+.contact{padding:clamp(80px,12vw,160px) 0 clamp(60px,8vw,100px);overflow:hidden}
+.ticker{display:flex;width:max-content;animation:tick 26s linear infinite}
+.ticker span{font-family:var(--f-big);text-transform:uppercase;font-size:clamp(4rem,16vw,15rem);line-height:.9;white-space:nowrap;padding-right:.4em;display:flex;align-items:center;gap:.4em}
+.ticker span .serif{font-size:.62em;color:var(--silver)}
+@keyframes tick{to{transform:translateX(-50%)}}
+.contact-row{padding:clamp(40px,6vw,70px) var(--gutter) 0;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.contact-row p{margin:0;max-width:36ch;font-size:clamp(1.05rem,1.5vw,1.25rem);color:rgba(244,242,238,.8)}
+.ways{display:flex;gap:10px 30px;flex-wrap:wrap;margin-top:22px}
+.ways a{text-decoration:none;font-weight:700;border-bottom:1px solid rgba(244,242,238,.3);padding-bottom:3px}
+.ways a:hover{border-color:var(--paper)}
+.wa-big{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:clamp(14px,1.6vw,22px);padding:10px clamp(22px,2.4vw,34px) 10px 10px;border-radius:999px;border:1px solid rgba(244,242,238,.3);color:var(--paper);text-decoration:none;font-family:var(--f-big);font-size:clamp(1.5rem,2.6vw,2.4rem);text-transform:uppercase;line-height:1;transition:color .45s var(--ease),border-color .45s;flex:none}
+.wa-big::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--paper);transform:translateY(101%);transition:transform .55s var(--ease)}
+.wa-big .ico{width:clamp(52px,5vw,68px);aspect-ratio:1;border-radius:50%;background:var(--wa);color:#03200e;display:grid;place-items:center;flex:none;transition:transform .55s var(--ease)}
+.wa-big .ico svg{width:52%;height:52%}
+.wa-big .arr{width:.8em;height:.8em;stroke:currentColor;fill:none;stroke-width:2.2;transition:transform .45s var(--ease)}
+.wa-big:hover{color:var(--ink);border-color:var(--paper)}
+.wa-big:hover::before{transform:translateY(0)}
+.wa-big:hover .ico{transform:rotate(-12deg)}
+.wa-big:hover .arr{transform:translate(4px,-4px)}
+@media (max-width:600px){.wa-big{width:100%;max-width:100%;font-size:1.3rem;padding-right:20px}.wa-big .arr{margin-left:auto}}
+footer{padding:28px var(--gutter);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
+footer img{height:24px;width:auto}
+
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;width:58px;height:58px;border-radius:50%;background:var(--wa);color:#03200e;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .4s var(--ease),opacity .4s}
+.fab svg{width:28px;height:28px}
+.fab.hide{transform:translateY(100px);opacity:0}
+
+/* player estilo Reels */
+.viewer{position:fixed;inset:0;z-index:60;background:rgba(3,3,3,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(20px,3vw,48px);padding:calc(24px + env(safe-area-inset-top,0px)) var(--gutter) calc(24px + env(safe-area-inset-bottom,0px));opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility 0s .4s}
+.viewer.open{opacity:1;visibility:visible;transition:opacity .4s var(--ease)}
+.v-left{justify-self:end;align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.v-count{font-family:var(--f-big);font-size:2.4rem;line-height:1}
+.v-nav{display:flex;gap:10px;margin-top:18px}
+.v-stage{position:relative;height:min(calc(100svh - 48px),900px);aspect-ratio:9/16;max-width:calc(100vw - 32px);border-radius:22px;overflow:hidden;background:#000;box-shadow:0 40px 120px rgba(0,0,0,.7);transition:transform .45s var(--ease),opacity .3s}
+.v-stage.go-up{transform:translateY(-6%);opacity:0}
+.v-stage.go-down{transform:translateY(6%);opacity:0}
+.v-stage video{width:100%;height:100%;object-fit:cover;background:#000}
+.v-img{display:none;width:100%;height:100%;object-fit:contain;background:#000}
+.v-stage.is-img video,.v-stage.is-img .v-sound,.v-stage.is-img .v-progress,.v-stage.is-img .v-hint{display:none!important}
+.v-stage.is-img .v-img{display:block}
+.ch-grid.imgs > :nth-child(even){margin-top:clamp(40px,6vw,90px)}
+.v-progress{position:absolute;left:12px;right:12px;top:12px;height:3px;border-radius:2px;background:rgba(255,255,255,.25);z-index:3;overflow:hidden}
+.v-progress i{display:block;height:100%;width:0;background:#fff}
+.v-sound{position:absolute;top:26px;right:14px;z-index:3;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center}
+.v-sound svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8}
+.v-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;padding:12px 18px;border-radius:999px;background:rgba(0,0,0,.6);font-weight:700;font-size:.9rem;display:none;white-space:nowrap}
+.v-hint.on{display:block}
+.v-info{display:flex;flex-direction:column;gap:16px;max-width:360px;min-width:0}
+.v-info h3{font-size:clamp(2.4rem,3.6vw,3.6rem)}
+.v-info p{margin:0;color:rgba(244,242,238,.78)}
+.v-info .client a,.v-overlay .client a{color:var(--silver);text-decoration:none;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chips li{font-size:.8rem;padding:6px 12px;border-radius:999px;border:1px solid rgba(244,242,238,.2)}
+.btn-want{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;background:var(--paper);color:var(--ink);font-weight:700;text-decoration:none;align-self:flex-start;transition:transform .3s var(--ease)}
+.btn-want:hover{transform:translateY(-2px)}
+.v-close{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:var(--gutter);z-index:5}
+.icon-btn{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(244,242,238,.2);background:rgba(5,5,5,.5);transition:background .2s,border-color .2s}
+.icon-btn:hover{border-color:var(--paper)}
+.icon-btn:disabled{opacity:.3;cursor:default}
+.icon-btn svg{width:20px;height:20px;stroke:var(--paper);fill:none;stroke-width:1.8}
+.v-overlay{display:none}
+@media (max-width:1000px){
+  .viewer{display:block;padding:0}
+  .v-left,.v-info{display:none}
+  .v-stage{position:absolute;inset:0;height:100%;width:100%;max-width:none;aspect-ratio:auto;border-radius:0}
+  .v-stage video{object-fit:contain}
+  .v-overlay{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:3;flex-direction:column;gap:8px;padding:80px 18px calc(22px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,rgba(0,0,0,.88))}
+  .v-overlay h3{font-size:2.2rem}
+  .v-overlay .row2{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:6px}
+  .v-overlay .btn-want{height:44px;font-size:.88rem;background:var(--wa);color:#03200e}
+  .v-overlay .swipe{font-size:.78rem;color:rgba(255,255,255,.7)}
+  .v-progress{top:calc(10px + env(safe-area-inset-top,0px))}
+  .v-sound{top:calc(78px + env(safe-area-inset-top,0px))}
+}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:90;background:var(--paper);color:var(--ink);padding:12px 18px;border-radius:12px;font-size:.88rem;transition:opacity .3s,transform .4s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+
+<!-- ===================================================================
+     CONTEÚDO DO SITE — é aqui que você adiciona, remove e reorganiza.
+     • nichos: a ordem desta lista é a ordem dos capítulos no site.
+     • trabalhos: cada bloco é um vídeo; "nicho" diz em qual capítulo ele entra.
+       Os arquivos ficam em media/ com o mesmo nome do id: id.mp4, id.jpg (capa) e id-previa.mp4.
+     • instagram: o @ do cliente, sem o "@". Vazio = não mostra nada.
+     =================================================================== -->
+<script>
+window.VISTO = {
+  marca: { nome: "Visto Studio", logo: "media/logo-wordmark.png", simbolo: "media/logo-v.png" },
+  contato: {
+    whatsapp: "5581985357559",
+    whatsappTexto: "(81) 98535-7559",
+    mensagem: "Olá! Vim pelo site da Visto Studio e quero conversar sobre um vídeo.",
+    instagram: "visto_studio"
+  },
+  abertura: { texto: "Gravação, edição e motion para marcas que vivem no vídeo." },
+  manifesto: "A gente transforma o dia a dia da sua marca em vídeos que as pessoas *param para ver.*",
+  nichos: [
+    { id: "fitness",    nome: "Academias e fitness" },
+    { id: "mercado",    nome: "Supermercado" },
+    { id: "autoescola", nome: "Autoescola" },
+    { id: "saude",      nome: "Saúde" },
+    { id: "comercio",   nome: "Marcas e lojas" },
+    { id: "eventos",    nome: "Eventos" },
+    { id: "motion",     nome: "Motion design" },
+    { id: "design",     nome: "Design gráfico" }
+  ],
+  trabalhos: [
+    /* ACADEMIAS E FITNESS */
+    { id: "funcross", nicho: "fitness", titulo: "FunCross na praia", cliente: "Academia Gaviões", instagram: "academiagavioes24hrecife",
+      descricao: "Aulão de FunCross na beira-mar, com o clima do evento do começo ao fim.", servicos: ["Edição"] },
+    { id: "dan-recife-sp", nicho: "fitness", titulo: "Novo capítulo", cliente: "Team Daniel Stamford", instagram: "teamdanielstamford",
+      descricao: "A mudança de Recife para São Paulo contada em vídeo, com imagens aéreas e títulos.", servicos: ["Edição"] },
+    { id: "spinner", nicho: "fitness", titulo: "Spinning of Rock", cliente: "Academia Gaviões", instagram: "academiagavioes24hrecife",
+      descricao: "A energia da aula de spinning com luz neon, professor e alunos no ritmo.", servicos: ["Edição"] },
+    { id: "berg-pro", nicho: "fitness", titulo: "Funcional fight", cliente: "Berg Silva Fight", instagram: "bergsilvafight",
+      descricao: "Treino de funcional com luta, da abertura em preto e branco ao ritmo da aula.", servicos: ["Edição"] },
+    { id: "gavioes-jiu", nicho: "fitness", titulo: "Jiu-jitsu", cliente: "Academia Gaviões", instagram: "academiagavioes24hrecife",
+      descricao: "Treino de jiu-jitsu com corte marcado e palavras sobre a imagem.", servicos: ["Edição"] },
+
+    /* SUPERMERCADO */
+    { id: "iguacu-dia-a-dia", nicho: "mercado", titulo: "Coisas que todo mundo já fez no mercado", cliente: "Supermercados Iguaçu", instagram: "supermercadosiguacu",
+      descricao: "Vídeo de humor com situações que todo cliente reconhece nos corredores.", servicos: ["Edição"] },
+    { id: "iguacu", nicho: "mercado", titulo: "Conheça o Iguaçu", cliente: "Supermercados Iguaçu", instagram: "supermercadosiguacu",
+      descricao: "Apresentação do supermercado, das imagens aéreas do bairro aos corredores da loja.", servicos: ["Edição"] },
+    { id: "iguacu-hortifruti", nicho: "mercado", titulo: "Hortifrúti", cliente: "Supermercados Iguaçu", instagram: "supermercadosiguacu",
+      descricao: "O setor de frutas e verduras mostrado de perto, com cores e reposição.", servicos: ["Edição"] },
+
+    /* AUTOESCOLA */
+    { id: "autoescola-biz", nicho: "autoescola", titulo: "Biz 0 km na rua", cliente: "Auto Escola Vitória", instagram: "cfcautoescolavitoria",
+      descricao: "Anúncio da nova moto sem embreagem para as aulas, com cenas em movimento pela cidade.", servicos: ["Edição"] },
+    { id: "autoescola-biz-escada", nicho: "autoescola", titulo: "A Biz tem embreagem?", cliente: "Auto Escola Vitória", instagram: "cfcautoescolavitoria",
+      descricao: "O instrutor apresenta a moto nova com legendas grandes e ritmo rápido.", servicos: ["Edição"] },
+    { id: "autoescola-matricula", nicho: "autoescola", titulo: "Escola que transforma", cliente: "Auto Escola Vitória", instagram: "cfcautoescolavitoria",
+      descricao: "Vídeo institucional com o diretor, as salas de aula e a fachada vista de cima.", servicos: ["Edição"] },
+
+    /* SAÚDE */
+    { id: "dra-juliana-antes-depois", nicho: "saude", titulo: "Antes e depois", cliente: "Dra. Juliana Santos", instagram: "drajuliana_otomodelacao",
+      descricao: "A transformação de uma paciente mostrada com cartões de antes e depois.", servicos: ["Edição"] },
+    { id: "dra-juliana", nicho: "saude", titulo: "Para quem tem queloide", cliente: "Dra. Juliana Santos", instagram: "drajuliana_otomodelacao",
+      descricao: "Vídeo de captação para a clínica, com legendas elegantes e cartões animados no final.", servicos: ["Edição"] },
+
+    /* MARCAS E LOJAS */
+    { id: "otica", nicho: "comercio", titulo: "Óculos para todo estilo", cliente: "Fuego Glasses", instagram: "fuegoglasses",
+      descricao: "Provador de óculos na loja, com muita cor e movimento.", servicos: ["Edição"] },
+    { id: "loja-de-carros", nicho: "comercio", titulo: "Seu próximo carro", cliente: "Loja de veículos", instagram: "",
+      descricao: "Vídeo para Reels de uma loja de veículos, com apresentação no pátio e legendas dinâmicas.", servicos: ["Edição"] },
+
+    /* EVENTOS */
+    { id: "show-ao-vivo", nicho: "eventos", titulo: "Show ao vivo", cliente: "", instagram: "",
+      descricao: "Cobertura de show com a banda no palco e a luz da casa.", servicos: ["Edição"] },
+    { id: "fisiculturismo", nicho: "eventos", titulo: "Campeonato de fisiculturismo", cliente: "", instagram: "",
+      descricao: "Cobertura do campeonato: pesagem, troféus, palco e atletas.", servicos: ["Edição"] },
+
+    /* MOTION DESIGN */
+    { id: "dizpara", nicho: "motion", titulo: "DizPara", cliente: "", instagram: "",
+      descricao: "Vídeo animado que explica o produto passo a passo, da busca no Google Maps ao contato pelo WhatsApp.", servicos: ["Roteiro", "Motion design"] },
+    { id: "nuvora", nicho: "motion", titulo: "Nuvora", cliente: "", instagram: "",
+      descricao: "Vídeo animado que apresenta a plataforma: painel do dia, clientes, projetos e documentos.", servicos: ["Roteiro", "Motion design"] },
+
+    /* DESIGN GRÁFICO — artes conceituais */
+    { id: "arte-academia", nicho: "design", tipo: "imagem", titulo: "Foco, disciplina, resultado", cliente: "", instagram: "",
+      descricao: "Post motivacional para academia, com contraste forte e destaque em verde-limão.", servicos: ["Design gráfico"] },
+    { id: "arte-hamburgueria", nicho: "design", tipo: "imagem", titulo: "Sabor que conquista", cliente: "", instagram: "",
+      descricao: "Post para hamburgueria, com o produto em primeiro plano e tipografia marcante.", servicos: ["Design gráfico"] },
+    { id: "arte-imobiliaria", nicho: "design", tipo: "imagem", titulo: "Um novo endereço", cliente: "", instagram: "",
+      descricao: "Post para imobiliária, com visual elegante e foco no imóvel.", servicos: ["Design gráfico"] },
+    { id: "arte-cafeteria", nicho: "design", tipo: "imagem", titulo: "Uma pausa. Um bom café.", cliente: "", instagram: "",
+      descricao: "Post para cafeteria, em tons quentes e clima aconchegante.", servicos: ["Design gráfico"] }
+  ]
+};
+</script>
+
+<header class="nav" id="nav">
+  <a href="#topo" aria-label="Visto Studio, início"><img id="navLogo" alt="Visto Studio"></a>
+  <nav class="nav-links" aria-label="Principal">
+    <a href="#trabalhos">Trabalhos</a><a href="#servicos">Serviços</a><a href="#contato">Contato</a>
+    <a class="wa" href="#contato" data-wa><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm4.5 12c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></svg>WhatsApp</a>
+  </nav>
+</header>
+
+<main id="topo">
+  <section class="hero" aria-label="Abertura">
+    <div class="wall" id="wall" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <h1 class="big" id="heroWord" aria-label="Visto"></h1>
+      <div class="sub serif" id="heroSub">studio audiovisual</div>
+    </div>
+    <div class="hero-foot">
+      <p id="heroText"></p>
+      <span class="scroll-cue">Role <i></i></span>
+    </div>
+  </section>
+
+  <section class="manifesto" aria-label="Sobre a Visto"><p id="manifesto"></p></section>
+
+  <section id="trabalhos" aria-labelledby="t-trab">
+    <div class="work-head">
+      <h2 class="big" id="t-trab"><span class="line-mask"><span>Trabalhos</span></span></h2>
+      <p>Toque em um vídeo para assistir com som. No player, deslize para ver o próximo do mesmo nicho.</p>
+    </div>
+    <div id="chapters"></div>
+  </section>
+
+  <section class="services" id="servicos" aria-labelledby="t-serv">
+    <div class="head"><span class="label" id="t-serv">O que fazemos</span></div>
+    <div id="svcList">
+      <article class="svc"><h3 class="big">Gravação</h3><p>Captação com direção de cena, enquadramento e luz pensados para o formato do vídeo.</p></article>
+      <article class="svc"><h3 class="big">Edição</h3><p>Cortes, ritmo, legendas, trilha e cor. Do material bruto ao vídeo pronto para postar.</p></article>
+      <article class="svc"><h3 class="big">Motion</h3><p>Textos, logos e elementos animados que dão identidade e deixam a mensagem clara.</p></article>
+      <article class="svc"><h3 class="big">Fotografia</h3><p>Fotos de produtos, espaços e pessoas para redes sociais e materiais da marca.</p></article>
+      <article class="svc"><h3 class="big">Design gráfico</h3><p>Posts, peças para campanhas e materiais impressos com a cara da sua marca.</p></article>
+    </div>
+  </section>
+
+  <section class="contact" id="contato" aria-labelledby="t-cont">
+    <h2 class="sr" id="t-cont" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Contato</h2>
+    <div class="ticker" aria-hidden="true" id="ticker"></div>
+    <div class="contact-row">
+      <div>
+        <p>Conte o que você precisa. A conversa começa pelo WhatsApp, sem compromisso.</p>
+        <div class="ways" id="ways"></div>
+      </div>
+      <a class="wa-big" href="#contato" data-wa><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></svg></span>Chamar no WhatsApp<svg class="arr" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
+  </section>
+</main>
+
+<footer><img id="footLogo" alt="Visto Studio"><span id="copy"></span></footer>
+
+
+<a class="fab hide" href="#contato" data-wa aria-label="Conversar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.2-1.4A9.9 9.9 0 1 0 12.04 2Zm0 18.1a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1 1 7 3.9Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></svg>
+</a>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vTitle" aria-hidden="true">
+  <div class="v-left"><span class="label" id="vNiche"></span><span class="v-count" id="vCount"></span>
+    <div class="v-nav">
+      <button class="icon-btn" id="vUp" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+      <button class="icon-btn" id="vDown" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+  </div>
+  <div class="v-stage" id="vStage">
+    <div class="v-progress"><i id="vBar"></i></div>
+    <video id="vVideo" playsinline preload="metadata"></video><img id="vImg" class="v-img" alt="">
+    <button class="v-sound" id="vSound" type="button" aria-label="Ativar ou desativar o som"></button>
+    <div class="v-hint" id="vHint">Toque para ativar o som</div>
+    <div class="v-overlay" id="vOverlay"></div>
+  </div>
+  <aside class="v-info" id="vInfo"></aside>
+  <button class="icon-btn v-close" id="vClose" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const C = window.VISTO;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const small = innerWidth < 760;
+  const items = C.trabalhos;
+  items.forEach(it => { if (it.tipo === "imagem") { it.capa = it.capa || `media/${it.id}.jpg`; return; } it.video = it.video || `media/${it.id}.mp4`; it.capa = it.capa || `media/${it.id}.jpg`; it.previa = it.previa || `media/${it.id}-previa.mp4`; });
+  const chapters = C.nichos.map(n => ({ ...n, list: items.filter(it => it.nicho === n.id) })).filter(n => n.list.length);
+  const nicheName = it => (C.nichos.find(n => n.id === it.nicho) || {}).nome || "";
+  const wa = msg => `https://wa.me/${C.contato.whatsapp}?text=${encodeURIComponent(msg || C.contato.mensagem)}`;
+  const igUrl = u => `https://instagram.com/${String(u).replace("@", "")}`;
+  const PLAY = `<svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg>`;
+  const lazyVideo = (src, cls) => { const v = document.createElement("video"); Object.assign(v, { muted: true, loop: true, playsInline: true, preload: "none" }); v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.dataset.src = src; if (cls) v.className = cls; return v; };
+
+  /* marca e contato */
+  $("#navLogo").src = C.marca.logo; $("#footLogo").src = C.marca.logo;
+  $("#copy").textContent = `© ${new Date().getFullYear()} ${C.marca.nome} · @${C.contato.instagram}`;
+  document.querySelectorAll("[data-wa]").forEach(a => { a.href = wa(); a.target = "_blank"; a.rel = "noopener"; });
+  $("#ways").innerHTML = `<a href="${wa()}" target="_blank" rel="noopener">${esc(C.contato.whatsappTexto)}</a><a href="${igUrl(C.contato.instagram)}" target="_blank" rel="noopener">@${esc(C.contato.instagram)}</a>`;
+  const tick = `<span>Vamos gravar <span class="serif">seu próximo vídeo</span> ✦</span>`;
+  $("#ticker").innerHTML = tick.repeat(4);
+
+  /* abertura */
+  $("#heroWord").innerHTML = "VISTO".split("").map(c => `<span class="ch"><span>${c}</span></span>`).join("");
+  $("#heroText").textContent = C.abertura.texto;
+  // parede: colunas de vídeos verticais subindo e descendo
+  const pool = items.filter(it => it.tipo !== "imagem");
+  const COLS = small ? 3 : 6, PER = 4;
+  let n = 0;
+  $("#wall").innerHTML = Array.from({ length: COLS }, (_, c) => {
+    const cells = Array.from({ length: PER }, () => pool[(n++ * 7 + c) % pool.length]);
+    const html = cells.concat(cells).map((it, i) => `<div class="cell" data-id="${esc(it.id)}" ${i === 1 ? 'data-play="1"' : ""}><img src="${esc(it.capa)}" alt="" ${c < 3 && i < 2 ? "" : 'loading="lazy"'} decoding="async"></div>`).join("");
+    return `<div class="col ${c % 2 ? "down" : "up"}" style="animation-duration:${44 + c * 5}s">${html}</div>`;
+  }).join("");
+  // só uma célula por coluna toca vídeo (leve), e só no computador
+  const wallVideos = [];
+  if (!reduce && !small) (window.requestIdleCallback || (f => setTimeout(f, 600)))(() => {
+    document.querySelectorAll('#wall .cell[data-play="1"]').forEach(cell => {
+      const it = items.find(x => x.id === cell.dataset.id); const v = lazyVideo(it.previa); v.src = v.dataset.src; v.autoplay = true;
+      cell.appendChild(v); v.play().catch(() => {}); wallVideos.push(v);
+    });
+  });
+  new IntersectionObserver(([e]) => { wallVideos.forEach(v => e.isIntersecting ? v.play().catch(()=>{}) : v.pause()); document.querySelectorAll(".col").forEach(c => c.style.animationPlayState = e.isIntersecting ? "running" : "paused"); }).observe($(".hero"));
+
+  /* manifesto palavra por palavra */
+  const man = C.manifesto.split(/(\*[^*]+\*)/).map(part => {
+    const serif = part.startsWith("*");
+    const words = part.replace(/\*/g, "").split(/\s+/).filter(Boolean).map(w => `<span class="w">${esc(w)}</span>`).join(" ");
+    return serif ? `<span class="serif">${words}</span>` : words;
+  }).join(" ");
+  $("#manifesto").innerHTML = man;
+
+  /* capítulos por nicho */
+  $("#chapters").innerHTML = chapters.map(ch => {
+    const igs = [...new Map(ch.list.filter(x => x.instagram).map(x => [x.instagram, x])).values()];
+    return `<article class="chapter" id="nicho-${ch.id}">
+      <div class="ch-side">
+        <span class="label">${ch.list.length} ${ch.id === "design" ? (ch.list.length > 1 ? "artes" : "arte") : (ch.list.length > 1 ? "vídeos" : "vídeo")}</span>
+        <h3 class="big"><span class="line-mask"><span>${esc(ch.nome)}</span></span></h3>
+        ${igs.length ? `<ul class="igs">${igs.map(x => `<li><a href="${igUrl(x.instagram)}" target="_blank" rel="noopener">@${esc(x.instagram)}</a> <span>· ${esc(x.cliente)}</span></li>`).join("")}</ul>` : ""}
+      </div>
+      <div class="ch-grid${ch.list.length === 1 ? " solo" : ""}${ch.id === "design" ? " imgs" : ""}">${ch.list.map(it => `
+        <button class="card" type="button" data-id="${esc(it.id)}" aria-label="Assistir ${esc(it.titulo)}">
+          <span class="frame"><img src="${esc(it.capa)}" alt="" loading="lazy" decoding="async"><span class="open">${it.tipo === "imagem" ? "Ver" : PLAY + " Assistir"}</span></span>
+          <span class="cap"><b>${esc(it.titulo)}</b>${it.instagram ? `<span>@${esc(it.instagram)}</span>` : ""}</span>
+        </button>`).join("")}</div>
+    </article>`;
+  }).join("");
+  // vídeos dos cards tocam sozinhos (sem som, versão leve) só enquanto estão na tela
+  if (!reduce) {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      const card = e.target; let v = card.querySelector("video");
+      if (e.isIntersecting) {
+        if (!v) { const it = items.find(x => x.id === card.dataset.id); if (it.tipo === "imagem") return; v = lazyVideo(it.previa); v.src = v.dataset.src; v.addEventListener("playing", () => card.classList.add("live")); card.querySelector("img").after(v); }
+        v.play().catch(() => {});
+      } else if (v) v.pause();
+    }), { threshold: .45 });
+    document.querySelectorAll(".card").forEach(c => io.observe(c));
+  }
+  $("#chapters").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openById(c.dataset.id, c); });
+
+  /* animações (GSAP + rolagem suave). Sem as bibliotecas, tudo continua visível e funcionando. */
+  if (window.gsap && window.ScrollTrigger && !reduce) {
+    gsap.registerPlugin(ScrollTrigger);
+    if (window.Lenis) {
+      const lenis = new Lenis({ lerp: .1 }); window.__lenis = lenis;
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+      document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const id = a.getAttribute("href"); if (id.length > 1 && document.querySelector(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -10 }); } }));
+    }
+    gsap.from("#heroWord .ch span", { yPercent: 105, duration: 1.3, ease: "expo.out", stagger: .07, delay: .15 });
+    gsap.from(["#heroSub", ".hero-foot"], { opacity: 0, y: 20, duration: 1, ease: "power3.out", delay: .7, stagger: .1 });
+    gsap.to(".hero-inner", { yPercent: 30, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to("#wall", { scale: 1.25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to("#manifesto .w", { opacity: 1, stagger: .1, ease: "none", scrollTrigger: { trigger: ".manifesto", start: "top 75%", end: "bottom 60%", scrub: true } });
+    document.querySelectorAll(".line-mask > span").forEach(el => gsap.from(el, { yPercent: 105, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+    if (!small) document.querySelectorAll(".ch-grid > :nth-child(even)").forEach(el => gsap.to(el, { y: -70, ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true } }));
+    document.querySelectorAll(".card .frame").forEach(el => gsap.from(el, { clipPath: "inset(18% 8% 18% 8% round 18px)", duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+    document.querySelectorAll(".svc h3").forEach(el => gsap.from(el, { xPercent: -6, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
+  } else document.querySelectorAll("#manifesto .w").forEach(w => w.style.opacity = 1);
+
+  /* player estilo Reels */
+  const viewer = $("#viewer"), stage = $("#vStage"), video = $("#vVideo"), bar = $("#vBar"), vImg = $("#vImg");
+  let list = [], idx = 0, lastFocus = null, muted = false, busy = false;
+  const SOUND_ON = `<svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>`;
+  const SOUND_OFF = `<svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>`;
+  function info(it, mobile){
+    const who = [it.cliente ? esc(it.cliente) : "", it.instagram ? `<a href="${igUrl(it.instagram)}" target="_blank" rel="noopener">@${esc(it.instagram)}</a>` : ""].filter(Boolean).join(" · ");
+    const cta = `<a class="btn-want" href="${wa((it.tipo === "imagem" ? `Olá! Vi a arte "${it.titulo}" no site da Visto Studio e quero algo assim.` : `Olá! Vi o vídeo "${it.titulo}" no site da Visto Studio e quero um vídeo assim.`))}" target="_blank" rel="noopener">${it.tipo === "imagem" ? "Quero uma arte assim" : "Quero um vídeo assim"}</a>`;
+    if (mobile) return `<span class="label">${esc(nicheName(it))} · ${idx + 1}/${list.length}</span><h3 class="big">${esc(it.titulo)}</h3>${who ? `<div class="client">${who}</div>` : ""}<div class="row2">${cta}${list.length > 1 ? `<span class="swipe">Deslize para cima ↑</span>` : ""}</div>`;
+    return `<h3 class="big" id="vTitle">${esc(it.titulo)}</h3>${who ? `<div class="client">${who}</div>` : ""}${it.descricao ? `<p>${esc(it.descricao)}</p>` : ""}
+      ${(it.servicos || []).length ? `<div><div class="label" style="margin-bottom:10px">O que fizemos</div><ul class="chips">${it.servicos.map(s => `<li>${esc(s)}</li>`).join("")}</ul></div>` : ""}${cta}`;
+  }
+  const updSound = () => { $("#vSound").innerHTML = muted ? SOUND_OFF : SOUND_ON; };
+  function render(dir){
+    const it = list[idx];
+    const apply = () => {
+      const isImg = it.tipo === "imagem";
+      stage.classList.toggle("is-img", isImg); vImg.src = isImg ? it.capa : "";
+      if (isImg) { video.pause(); video.removeAttribute("src"); video.load(); bar.style.width = "0"; }
+      else { video.pause(); video.src = it.video; video.poster = it.capa; video.muted = muted;
+      const p = video.play(); if (p) p.catch(() => { muted = true; video.muted = true; video.play().catch(() => {}); $("#vHint").classList.add("on"); updSound(); }); }
+      $("#vNiche").textContent = nicheName(it); $("#vCount").textContent = `${idx + 1} / ${list.length}`;
+      $("#vInfo").innerHTML = info(it, false); $("#vOverlay").innerHTML = info(it, true);
+      $("#vUp").disabled = idx === 0; $("#vDown").disabled = idx === list.length - 1;
+      history.replaceState(null, "", "#trabalho-" + it.id); updSound();
+    };
+    if (dir && !reduce) {
+      busy = true; stage.classList.add(dir > 0 ? "go-up" : "go-down");
+      setTimeout(() => { apply(); stage.classList.remove("go-up", "go-down"); stage.style.transition = "none"; stage.style.transform = `translateY(${dir > 0 ? 6 : -6}%)`; stage.style.opacity = "0";
+        requestAnimationFrame(() => { stage.style.transition = ""; stage.style.transform = ""; stage.style.opacity = ""; setTimeout(() => busy = false, 350); }); }, 220);
+    } else apply();
+  }
+  function openById(id, from){
+    const it = items.find(x => x.id === id); if (!it) return;
+    list = items.filter(x => x.nicho === it.nicho); idx = list.indexOf(it); lastFocus = from || document.activeElement; muted = false;
+    viewer.classList.add("open"); viewer.setAttribute("aria-hidden", "false");
+    document.documentElement.style.overflow = "hidden"; window.__lenis && window.__lenis.stop();
+    document.querySelectorAll(".card video, #wall video").forEach(v => v.pause());
+    render(0); setTimeout(() => $("#vClose").focus({ preventScroll: true }), 50);
+  }
+  function close(){
+    if (!viewer.classList.contains("open")) return;
+    video.pause(); video.removeAttribute("src"); video.load();
+    viewer.classList.remove("open"); viewer.setAttribute("aria-hidden", "true");
+    document.documentElement.style.overflow = ""; window.__lenis && window.__lenis.start(); $("#vHint").classList.remove("on");
+    history.replaceState(null, "", location.pathname + location.search);
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+  }
+  const go = d => { if (busy) return; const k = idx + d; if (k < 0 || k >= list.length) return; idx = k; render(d); };
+  $("#vClose").onclick = close; $("#vUp").onclick = () => go(-1); $("#vDown").onclick = () => go(1);
+  $("#vSound").onclick = e => { e.stopPropagation(); muted = !muted; video.muted = muted; $("#vHint").classList.remove("on"); updSound(); };
+  video.addEventListener("click", () => { if ($("#vHint").classList.contains("on")) { muted = false; video.muted = false; $("#vHint").classList.remove("on"); updSound(); return; } video.paused ? video.play() : video.pause(); });
+  video.addEventListener("timeupdate", () => { bar.style.width = (video.duration ? video.currentTime / video.duration * 100 : 0) + "%"; });
+  video.addEventListener("ended", () => { if (idx < list.length - 1) go(1); else video.play(); });
+  addEventListener("keydown", e => {
+    if (!viewer.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+    if (e.key === " ") { e.preventDefault(); video.paused ? video.play() : video.pause(); }
+  });
+  let wheelLock = 0;
+  viewer.addEventListener("wheel", e => { e.preventDefault(); e.stopPropagation(); const now = Date.now(); if (now - wheelLock < 700 || Math.abs(e.deltaY) < 20) return; wheelLock = now; go(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+  let sy = 0, sx = 0;
+  viewer.addEventListener("touchstart", e => { sy = e.touches[0].clientY; sx = e.touches[0].clientX; }, { passive: true });
+  viewer.addEventListener("touchend", e => {
+    const dy = e.changedTouches[0].clientY - sy, dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) go(dy < 0 ? 1 : -1);
+    else if (dx > 90 && Math.abs(dx) > Math.abs(dy)) close();
+  });
+  const m = location.hash.match(/^#trabalho-([\w-]+)$/); if (m) setTimeout(() => openById(m[1]), 300);
+
+  /* navegação */
+  const nav = $("#nav"), fab = document.querySelector(".fab");
+  const onScroll = () => { nav.classList.toggle("solid", scrollY > innerHeight * .8); const c = $("#contato").getBoundingClientRect(); fab.classList.toggle("hide", scrollY < innerHeight || c.top < innerHeight); };
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+})();
+</script>
+
+</body>
+</html>
